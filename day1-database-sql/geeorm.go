@@ -50,6 +50,8 @@ func NewEngine(driver, source string) (e *Engine, err error) {
 }
 
 // Close方法 关闭数据库连接，释放资源。
+// 为什么要单独写 Close() 方法？
+//   - 因为我们希望 ORM 有统一的管理接口，而不是直接操作 sql.DB
 func (engine *Engine) Close() {
 	if err := engine.db.Close(); err != nil {
 		log.Error("Failed to close database") // 数据库关闭失败
